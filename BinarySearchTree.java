@@ -41,6 +41,49 @@ public class BinarySearchTree {
 		return root;
 	}
 	
+	//Recursive removal functions
+	
+	public void removeNode(int key) {
+		root = removeNodeRecursive(root, key);
+	}
+	
+	public Node removeNodeRecursive(Node root, int key) {
+		
+		if(root == null) {
+			return root;
+		}
+		
+		if(key < root.key) {
+			root.left = removeNodeRecursive(root.left, key);
+		}
+		else if(key > root.key) {
+			root.right = removeNodeRecursive(root.right, key);
+		}
+		else {
+			if(root.left == null) {
+				return root.right;
+			}
+			else if(root.right == null){
+				return root.left;
+			}
+		}
+		
+		root.key = minValue(root.right);
+		root.right = removeNodeRecursive(root.right, root.key);
+		return root;
+	}
+	
+	public int minValue(Node root) {
+		
+		int minValue = root.key;
+		
+		while(root.left != null) {
+			minValue = root.left.key;
+			root = root.left;
+		}
+		
+		return minValue;
+	}
 	//Traverses the tree from left to right
 	public void inorder() {
 		inorderRecursive(root);
@@ -73,11 +116,14 @@ public class BinarySearchTree {
 		
 		bts.insert(40);
 		bts.insert(50);
+		bts.inorder();
+		bts.removeNode(40);
+		System.out.println("");
 		bts.insert(20);
 		bts.insert(10);
 		bts.insert(60);
 		bts.insert(45);
-		
+		bts.removeNode(50);
 		bts.inorder();
 		
 	}
