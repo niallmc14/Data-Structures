@@ -41,6 +41,7 @@ public class BinarySearchTree {
 		return root;
 	}
 	
+	//Traverses the tree from left to right
 	public void inorder() {
 		inorderRecursive(root);
 	}
