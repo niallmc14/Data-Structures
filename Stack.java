@@ -23,7 +23,7 @@ public class Stack {
 		return stack[--top];
 	}
 	
-	public int peek() {
+	public int top() {
 		return stack[top];
 	}
 	
