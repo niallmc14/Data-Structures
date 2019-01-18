@@ -10,41 +10,55 @@ public class LLQueue<T> implements Queue<T> {
 		}
 	}
 	
-	private Node first, last;
+	private Node front, rear;
 	private int size;
 	
 	LLQueue(){
-		first = null;
-		last = null;
+		front = null;
+		rear = null;
 		size = 0;
 	}
 	
 	@Override
 	public void enqueue(T data) {
 		// TODO Auto-generated method stub
-		Node lastElem = last;
-		last = new Node(data);
-		last.next = null;
+		Node lastElem = new Node(data);
+		if(rear == null) {
+			front = lastElem;
+		}else {
+			rear.next = lastElem;
+		}
+		
+		rear = lastElem;
 		size++;
 		return;
 	}
 
 	@Override
 	public T dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		T data = front.data;
+		front = front.next;
+		
+		if(front == null) {
+			rear = null;
+		}
+		else {
+			data = null;
+		}
+		size--;
+		return data;
 	}
 
 	@Override
 	public T front() {
-		// TODO Auto-generated method stub
-		return first.data;
+		return front.data;
 	}
 
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return first == null;
+		return front == null;
 	}
 
 	@Override
@@ -55,9 +69,9 @@ public class LLQueue<T> implements Queue<T> {
 	public String toString() {
 	       
 	      String out = "[" + size + " element(s)]: ";
-	      Node n = first;
+	      Node n = front;
 	      while ( n != null ) {
-	         out += "[-|" + n + "|-] ->";
+	         out += "<-[-|" + n.data + "|-]";
 	         n = n.next;
 	      }
 	      return out;
@@ -67,10 +81,27 @@ public class LLQueue<T> implements Queue<T> {
 		
 		LLQueue<Integer> l = new LLQueue<Integer>();
 		
-		l.enqueue(2);
+		l.enqueue(10);
 		System.out.println(l.toString());
-		l.enqueue(2);
+		l.enqueue(20);
 		System.out.println(l.toString());
+		l.enqueue(30);
+		System.out.println(l.toString());
+		l.enqueue(40);
+		System.out.println(l.toString());
+		l.dequeue();
+		System.out.println(l.toString());
+
+		l.dequeue();
+		System.out.println(l.toString());
+		
+		System.out.println("Front element: " + l.front());
+		l.enqueue(50);
+		System.out.println(l.toString());
+		l.dequeue();
+		System.out.println(l.toString());
+
+		System.out.println("Front element: " + l.front());
 
 	}
 
